@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuromi's Mischief Arcade 😈🖤</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Righteous&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #0b0713;
+            transition: all 0.4s ease;
+        }
+        .pop-font {
+            font-family: 'Righteous', sans-serif;
+        }
+        .kuromi-border {
+            border-width: 2px;
+            box-shadow: 4px 4px 0px rgba(0,0,0,1);
+        }
+        .kuromi-card {
+            transition: all 0.2s ease;
+        }
+        .kuromi-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px rgba(0,0,0,1);
+        }
+    </style>
+</head>
+<body id="kuromi-body" class="text-zinc-100 min-h-screen p-3 sm:p-6 flex flex-col justify-between relative overflow-x-hidden selection:bg-fuchsia-500 selection:text-white">
+
+    <header class="max-w-4xl w-full mx-auto bg-[#171226] p-5 rounded-2xl border-2 border-black kuromi-border flex flex-col md:flex-row justify-between items-center gap-4 mb-6 relative z-10">
+        <div class="text-center md:text-left">
+            <div class="inline-flex items-center gap-1 bg-black/40 px-3 py-1 rounded-full text-[10px] font-bold text-fuchsia-400 tracking-wider uppercase mb-1">
+                ☠️ MISCHIEF LEVEL: MAXIMUM // K-CLASS 10
+            </div>
+            <h1 class="pop-font text-2xl tracking-wide text-white flex items-center justify-center md:justify-start gap-2">
+                KUROMI STUDY ARCADE 😈
+            </h1>
+            <p class="text-[11px] font-medium text-zinc-400">Goth-Pastel Cheat Sheets & Math Mission Checkpoints</p>
+        </div>
+        
+        <div class="bg-black/50 p-1.5 rounded-xl border border-zinc-800 flex gap-1 w-full md:w-auto">
+            <button onclick="changeMischiefTheme('midnight')" id="t-midnight" class="px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wide uppercase transition-all duration-300 w-full">
+                🖤 Punk
+            </button>
+            <button onclick="changeMischiefTheme('lavender')" id="t-lavender" class="px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wide uppercase transition-all duration-300 w-full">
+                🔮 Goth
+            </button>
+            <button onclick="changeMischiefTheme('electric')" id="t-electric" class="px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wide uppercase transition-all duration-300 w-full">
+                ⚡ Cheeky
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-4xl w-full mx-auto bg-[#1e1932] rounded-[2rem] border-2 border-black p-4 sm:p-8 kuromi-border relative z-10 flex-grow flex flex-col justify-between min-h-[520px]">
+        
+        <div>
+            <nav class="flex flex-wrap gap-2 border-b-2 border-black/30 pb-4 mb-6">
+                <button onclick="selectMischief('sptldv')" id="n-sptldv" class="px-4 py-2.5 rounded-xl text-xs font-bold kuromi-border kuromi-card">
+                    🖤 Note 01: SPTLDV
+                </button>
+                <button onclick="selectMischief('trigo')" id="n-trigo" class="px-4 py-2.5 rounded-xl text-xs font-bold kuromi-border kuromi-card">
+                    🔮 Note 02: Trigonometri
+                </button>
+                <button onclick="selectMischief('stats')" id="n-stats" class="px-4 py-2.5 rounded-xl text-xs font-bold kuromi-border kuromi-card">
+                    💀 Note 03: Statistika
+                </button>
+            </nav>
+
+            <div class="space-y-6">
+                <div>
+                    <span id="mischief-tag" class="text-[9px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-md bg-black/40 text-fuchsia-400 border border-fuchsia-900/30"></span>
+                    <h2 id="mischief-title" class="pop-font text-2xl text-white tracking-wide mt-3"></h2>
+                </div>
+
+                <div class="bg-black/30 p-5 rounded-2xl border-2 border-black kuromi-border relative">
+                    <div class="absolute -top-3 right-4 bg-black text-white text-[9px] font-bold px-2 py-0.5 rounded border border-zinc-700 uppercase">Kuromi's Diary 📝</div>
+                    <p id="mischief-desc" class="text-xs sm:text-sm text-zinc-300 leading-relaxed font-medium tracking-wide"></p>
+                </div>
+
+                <div id="formula-mischief-box" class="p-4 rounded-xl text-xs font-medium bg-black/50 border border-zinc-800">
+                    </div>
+
+                <div class="bg-[#171226] p-5 rounded-2xl border-2 border-black kuromi-border space-y-3">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xs">🖤</span>
+                        <h4 class="text-[10px] font-bold uppercase tracking-wider text-fuchsia-400">Mischief Trick Checkpoint</h4>
+                    </div>
+                    <p id="kuromi-quiz-prompt" class="text-xs sm:text-sm text-zinc-100 font-bold leading-relaxed"></p>
+                    
+                    <div id="kuromi-choices-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                        </div>
+                    
+                    <div id="kuromi-quiz-alert" class="hidden text-xs font-bold p-3 rounded-xl text-center border-2 border-black kuromi-border transition-all duration-300"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-6 border-t-2 border-black/30 mt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-fuchsia-500 animate-pulse"></span>
+                <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Diary Status: Locked & Ready 🔐</span>
+            </div>
+            <a id="kuromi-video-btn" href="#" target="_blank" class="w-full sm:w-auto text-center px-6 py-3 text-white font-bold text-xs tracking-wider uppercase rounded-xl kuromi-border kuromi-card">
+                Tonton Video Tutorial ➔
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="text-center text-[10px] pop-font text-zinc-600 tracking-[0.3em] uppercase py-6">
+        💀 stay cheeky, study smart • kuromi arcade v5.0 © 2026 💀
+    </footer>
+
+    <script>
+        let selectedModule = 'sptldv';
+        let activeTheme = 'midnight';
+
+        // DATABASE MATERI MATEMATIKA KELAS 10 VERSI KUROMI DIARY
+        const kuromiDatabase = {
+            sptldv: {
+                tag: "Zone: Rebels Coordinate Graph",
+                title: "Sistem Pertidaksamaan Linear Dua Variabel",
+                desc: "Mengunci wilayah hasil pertidaksamaan linear itu seru banget, mirip kayak nandain wilayah kekuasaan geng sepeda motor kita! Pertama, cari dulu gerbang potong di sumbu X dan Y bergantian pake trik pura-pura angka nol. Tarik garis batasnya dengan rapi. Terakhir, jebak pake tes kelayakan logis di koordinat pusat (0,0). Kalau hasilnya terbukti benar sesuai soal harian, langsung arsir tebal daerah yang memayungi titik pusat (0,0) itu!",
+                formula: `
+                    <p class="text-fuchsia-400 font-bold mb-1.5 flex items-center gap-1">☠️ Aturan Kunci Garis Tepi:</p>
+                    <p class="text-zinc-300">• Pakai <span class="text-white underline decoration-fuchsia-500 font-bold">garis lurus tebal</span> kalau di soalnya ada tanda sama dengannya (≤ atau ≥).</p>
+                    <p class="text-zinc-300">• Pakai <span class="text-white underline decoration-dashed decoration-zinc-500 font-bold">garis putus-putus nakal</span> kalau soalnya cuma tanda kurung biasa biasa (< atau >).</p>
+                `,
+                quiz: {
+                    prompt: "Kalau ada soal pertidaksamaan x + y ≥ 5 terus kita uji pake titik pusat (0,0), hasil keputusan akhir datanya menurut kamu benar atau salah, nih?",
+                    choices: [
+                        { text: "Salah total! Soalnya 0 itu gak lebih gede dari angka 5 🖤", isCorrect: true },
+                        { text: "Bener dong, kan angka nol selalu menang tanpa syarat 🖤", isCorrect: false }
+                    ]
+                },
+                link: "https://www.youtube.com/results?search_query=belajar+sptldv+mudah"
+            },
+            trigo: {
+                tag: "Zone: Secret Triangle Vektor",
+                title: "Trigonometri Dasar & Aturan Berputar Kuadran",
+                desc: "Trigonometri itu rahasia utamanya cuma mengupas perbandingan ukuran sisi segitiga siku-siku yang estetik. Biar kamu gak gampang pusing hafalin rumusnya, pakai mantra singkatan rahasia Kuromi ini: Sin itu Demi (Depan/Miring), Cos itu Sami (Samping/Miring), dan Tan itu Desa (Depan/Samping). Terus buat menebak wilayah mana aja yang bernilai positif, hafalin kode sihir ini: ASTC (All, Sin, Tan, Cos)!",
+                formula: `
+                    <p class="text-fuchsia-400 font-bold mb-1.5 flex items-center gap-1">☠️ Tabel Mantra Sudut Istimewa (Sin):</p>
+                    <p class="font-mono text-[11px] text-zinc-400 bg-black/40 p-2 rounded text-center border border-zinc-800/80">
+                        Sin 30° = 1/2  |  Sin 45° = 1/2√2  |  Sin 60° = 1/2√3
+                    </p>
+                `,
+                quiz: {
+                    prompt: "Ada tangga sepanjang 6 meter disandarin ke tembok dengan sudut kemiringan lantai 60°. Tinggi puncak tembok yang dicapai tangga paling tepat dihitung pake rumus perbandingan apa?",
+                    choices: [
+                        { text: "Pake rumus SIN (Perbandingan Sisi Depan/Miring) 🔮", isCorrect: true },
+                        { text: "Pake rumus TAN (Perbandingan Sisi Depan/Samping) 🔮", isCorrect: false }
+                    ]
+                },
+                link: "https://www.youtube.com/results?search_query=trik+trigonometri+sudut+istimewa"
+            },
+            stats: {
+                tag: "Zone: Data Analytics Skull Pack",
+                title: "Statistika: Pengolahan Sekumpulan Data Tunggal",
+                desc: "Membongkar tumpukan data statistika tunggal bakal mempertemukan kita sama gerombolan trio penguasa angka matematika: Mean (nilai rata-rata kelompok data, tinggal kamu jumlahin semua angka lalu dibagi total jumlah frekuensi data), Median (angka yang posisinya pas di tengah-tengah barisan, tapi wajib kamu urutin dulu dari kecil ke besar ya!), dan Modus (angka yang paling rajin muncul alias paling eksis).",
+                formula: `
+                    <p class="text-fuchsia-400 font-bold mb-1.5 flex items-center gap-1">☠️ Rumus Selisih Jangkauan Rentang (Range):</p>
+                    <p class="text-zinc-300">• Rentang dicari dengan menghitung selisih angka paling besar dikurangi angka paling kecil (Xmax - Xmin).</p>
+                    <p class="text-zinc-300">• Contoh barisan data tunggal (6, 7, 8, 8, 9) punya Mean = 7.6, Median = 8, Modus = 8, dan Range = 3.</p>
+                `,
+                quiz: {
+                    prompt: "Diketahui hasil sekumpulan data nilai kuis harian kelas adalah: 5, 6, 7, 7, 10. Berapakah nilai Jangkauan (Range) kelompok data tunggal tersebut?",
+                    choices: [
+                        { text: "Range = 5 (Hasil akhir dari hitungan 10 dikurangi 5) 💀", isCorrect: true },
+                        { text: "Range = 7 (Karena angka 7 adalah modusnya) 💀", isCorrect: false }
+                    ]
+                },
+                link: "https://www.youtube.com/results?search_query=statistika+data+tunggal+kelas+10"
+            }
+        };
+
+        // KUMPULAN TEMA WARNA GOTHIC PASTELES (KUROMI PALETTE SWITCHER)
+        const kuromiThemes = {
+            midnight: {
+                bodyBg: "bg-[#0c0714]",
+                navActive: "bg-fuchsia-600 text-white border-2 border-black",
+                tabBtnActive: "bg-fuchsia-600 text-white",
+                btnAction: "bg-gradient-to-r from-fuchsia-600 to-purple-700 text-white hover:opacity-95"
+            },
+            lavender: {
+                bodyBg: "bg-[#181424]",
+                navActive: "bg-purple-400 text-black border-2 border-black",
+                tabBtnActive: "bg-purple-400 text-black",
+                btnAction: "bg-gradient-to-r from-purple-400 to-indigo-400 text-black font-bold hover:opacity-95"
+            },
+            electric: {
+                bodyBg: "bg-[#0f0512]",
+                navActive: "bg-pink-600 text-white border-2 border-black animate-pulse",
+                tabBtnActive: "bg-pink-600 text-white",
+                btnAction: "bg-gradient-to-r from-pink-500 to-fuchsia-600 text-white hover:opacity-95"
+            }
+        };
+
+        function runKuromiArcade() {
+            const data = kuromiDatabase[selectedModule];
+            const theme = kuromiThemes[activeTheme];
+
+            // 1. Sinkronisasi Warna Latar Belakang Utama Body
+            document.getElementById('kuromi-body').className = `${theme.bodyBg} text-zinc-100 min-h-screen p-3 sm:p-6 flex flex-col justify-between relative overflow-x-hidden selection:bg-fuchsia-500 selection:text-white`;
+
+            // 2. Injeksi Data Teks Utama Materi
+            document.getElementById('mischief-tag').innerText = data.tag;
+            document.getElementById('mischief-title').innerText = data.title;
+            document.getElementById('mischief-desc').innerText = data.desc;
+
+            // 3. Injeksi Rumus Kotak Tengah
+            document.getElementById('formula-mischief-box').innerHTML = data.formula;
+
+            // 4. Reset & Injeksi Kuis Tantangan
+            document.getElementById('kuromi-quiz-prompt').innerText = data.quiz.prompt;
+            document.getElementById('kuromi-quiz-alert').className = "hidden text-xs font-bold p-3 rounded-xl text-center border-2 border-black kuromi-border transition-all duration-300";
+
+            // 5. Injeksi Pilihan Jawaban Kuis
+            const choicesGrid = document.getElementById('kuromi-choices-grid');
+            choicesGrid.innerHTML = '';
+            data.quiz.choices.forEach(ch => {
+                const btn = document.createElement('button');
+                btn.innerText = ch.text;
+                btn.className = "p-3 bg-black/40 border-2 border-black kuromi-border text-zinc-300 rounded-xl text-left text-xs font-semibold hover:bg-black/60 transition duration-150";
+                btn.onclick = function() { checkMischiefAnswer(ch.isCorrect); };
+                choicesGrid.appendChild(btn);
+            });
+
+            // 6. Sinkronisasi Tombol Utama Video Pembahasan
+            const videoBtn = document.getElementById('kuromi-video-btn');
+            videoBtn.href = data.link;
+            videoBtn.className = `w-full sm:w-auto text-center px-6 py-3 font-bold text-xs tracking-wider uppercase rounded-xl kuromi-border kuromi-card ${theme.btnAction}`;
+
+            // 7. Sinkronisasi Aktif Navigasi Tab Menu Utama
+            const modules = ['sptldv', 'trigo', 'stats'];
+            modules.forEach(m => {
+                const tab = document.getElementById(`n-${m}`);
+                if (m === selectedModule) {
+                    tab.className = `px-4 py-2.5 rounded-xl text-xs font-bold kuromi-border kuromi-card ${theme.navActive}`;
+                } else {
+                    tab.className = "px-4 py-2.5 rounded-xl text-xs font-medium text-zinc-500 bg-black/20 border-2 border-transparent hover:text-zinc-300 transition-all duration-300";
+                }
+            });
+
+            // 8. Sinkronisasi Aktif Tombol Theme Switcher Di Atas Header
+            const themes = ['midnight', 'lavender', 'electric'];
+            themes.forEach(t => {
+                const themeBtn = document.getElementById(`t-${t}`);
+                if (t === activeTheme) {
+                    themeBtn.className = `px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wide uppercase transition-all duration-300 w-full ${theme.tabBtnActive} shadow-sm`;
+                } else {
+                    themeBtn.className = "px-3 py-1.5 rounded-lg text-[10px] font-medium tracking-wide uppercase text-zinc-500 hover:text-zinc-300 transition-all duration-300 w-full";
+                }
+            });
+        }
+
+        // Protokol Evaluasi Hasil Jawaban Kuis Kuromi
+        function checkMischiefAnswer(isCorrect) {
+            const alertBox = document.getElementById('kuromi-quiz-alert');
+            alertBox.classList.remove('hidden');
+            if (isCorrect) {
+                alertBox.innerText = "💀 Hebat, Baku bangga sama kamu! Jawaban terverifikasi beres dan akurat (+100 Mischief Points) ⚡";
+                alertBox.className = "text-xs font-bold p-3 rounded-xl text-center border-2 border-black kuromi-border bg-emerald-950/80 border-emerald-500 text-emerald-400 block animate-bounce";
+            } else {
+                alertBox.innerText = "😈 Uh-oh, zonk! Corat-coretannya kurang pas nih, yuk coba analisis ulang rumusnya!";
+                alertBox.className = "text-xs font-bold p-3 rounded-xl text-center border-2 border-black kuromi-border bg-rose-950/80 border-rose-500 text-rose-400 block";
+            }
+        }
+
+        // Router Actions Navigation
+        function selectMischief(id) {
+            selectedModule = id;
+            runKuromiArcade();
+        }
+
+        function changeMischiefTheme(themeId) {
+            activeTheme = themeId;
+            runKuromiArcade();
+        }
+
+        // Bootup Awal Program Saat Halaman Selesai Dimuat
+        document.addEventListener("DOMContentLoaded", function() {
+            runKuromiArcade();
+        });
+    </script>
+</body>
+</html>
